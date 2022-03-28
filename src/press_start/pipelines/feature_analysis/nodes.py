@@ -4,7 +4,12 @@ import pandas as pd
 def pandas_profile(df: pd.DataFrame, params):
     from pandas_profiling import ProfileReport
 
-    profile = ProfileReport(df)
+    params = params.get('pandas_profile', {})
+
+    sample_size = params.get('sample_fraction', 1)
+    profile = ProfileReport(
+        df.sample(frac=sample_size), **params.get('params', {})
+    )
     return profile.to_html()
 
 

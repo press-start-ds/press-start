@@ -1,5 +1,12 @@
 feature_analysis:
-  pandas_profile: null
+  pandas_profile:
+    _run: true
+    sample_fraction: 1.0
+    params:
+      samples:
+        head: 5
+        tail: 5
+      interactions: null
 
 columns_drop: null
 columns_target: target
