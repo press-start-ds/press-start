@@ -11,10 +11,3 @@ input_dataset:
 pandas_profile:
   type: text.TextDataSet
   filepath: data/08_reporting/pandas_profile.html
-
-# missing_no:
-#   type: matplotlib.MatplotlibWriter
-#   filepath: data/08_reporting/missing_no.pdf
-#   save_args:
-#     bbox_inches: tight
-#     format: pdf

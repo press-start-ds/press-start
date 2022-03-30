@@ -1,6 +1,5 @@
 feature_analysis:
   pandas_profile:
-    _run: true
     sample_fraction: 1.0
     params:
       samples:
@@ -8,5 +7,8 @@ feature_analysis:
         tail: 5
       interactions: null
 
-columns_drop: null
+# feature_selection:
+
+columns_to_keep: null
+columns_to_drop: null
 columns_target: target
