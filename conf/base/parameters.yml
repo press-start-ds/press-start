@@ -7,8 +7,14 @@ feature_analysis:
         tail: 5
       interactions: null
 
-# feature_selection:
+feature_selection:
+data_split:
+  # dev_size
+  dev_fraction: 0.2
+  stratify: True
 
-columns_to_keep: null
-columns_to_drop: null
-columns_target: target
+general:
+  columns_to_keep: null
+  columns_to_drop: null
+  column_target: survived
+  prng_seed: 12345
