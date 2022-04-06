@@ -7,7 +7,9 @@ feature_analysis:
         tail: 5
       interactions: null
 
-feature_selection:
+feat_selection_corr:
+  max_corr: 0.95
+
 data_split:
   # dev_size
   dev_fraction: 0.2

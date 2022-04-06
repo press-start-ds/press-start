@@ -1,7 +1,7 @@
 [tool.kedro]
 package_name = "press_start"
 project_name = "Press Start - Data Science Projects"
-project_version = "0.17.6"
+project_version = "0.18.0"
 
 [tool.isort]
 multi_line_output = 3
