@@ -4,7 +4,7 @@
 # Link: https://kedro.readthedocs.io/en/stable/05_data/01_data_catalog.html
 input_dataset:
   type: pandas.CSVDataSet
-  filepath: data/01_raw/titanic.csv
+  filepath: data/01_raw/iris.csv
 
 dev_dataset:
   type: pandas.CSVDataSet
@@ -17,3 +17,7 @@ holdout_dataset:
 pandas_profile:
   type: text.TextDataSet
   filepath: data/08_reporting/pandas_profile.html
+
+feat_selection_k_best:
+  type: pandas.CSVDataSet
+  filepath: data/03_primary/feat_selection_k_best.csv

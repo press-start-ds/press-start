@@ -7,8 +7,8 @@ feature_analysis:
         tail: 5
       interactions: null
 
-feat_selection_corr:
-  max_corr: 0.95
+feat_selection_k_best:
+  k: 3
 
 data_split:
   # dev_size
@@ -18,5 +18,5 @@ data_split:
 general:
   columns_to_keep: null
   columns_to_drop: null
-  column_target: survived
+  column_target: variety
   prng_seed: 12345
