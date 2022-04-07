@@ -1,6 +1,5 @@
 feature_analysis:
   pandas_profile:
-    _run: true
     sample_fraction: 1.0
     params:
       samples:
@@ -8,5 +7,16 @@ feature_analysis:
         tail: 5
       interactions: null
 
-columns_drop: null
-columns_target: target
+feat_selection_k_best:
+  k: 3
+
+data_split:
+  # dev_size
+  dev_fraction: 0.2
+  stratify: True
+
+general:
+  columns_to_keep: null
+  columns_to_drop: null
+  column_target: variety
+  prng_seed: 12345

@@ -1,0 +1,4 @@
+run:
+  node_names:
+    - data_split
+    - feat_selection_k_best

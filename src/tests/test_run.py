@@ -7,17 +7,26 @@ named ``test_*`` which test a unit of logic.
 
 To run the tests, run ``kedro test`` from the project root directory.
 """
-
 from pathlib import Path
 
 import pytest
+from kedro.config import ConfigLoader
 from kedro.framework.context import KedroContext
+from kedro.framework.hooks import _create_hook_manager
 
 
 @pytest.fixture
-def project_context():
+def config_loader():
+    return ConfigLoader(conf_source=str(Path.cwd()))
+
+
+@pytest.fixture
+def project_context(config_loader):
     return KedroContext(
-        package_name="press_start", project_path=Path.cwd()
+        package_name="press_start",
+        project_path=Path.cwd(),
+        config_loader=config_loader,
+        hook_manager=_create_hook_manager(),
     )
 
 
@@ -25,5 +34,5 @@ def project_context():
 # and should be replaced with the ones testing the project
 # functionality
 class TestProjectContext:
-    def test_package_name(self, project_context):
-        assert project_context.package_name == "press_start"
+    def test_project_path(self, project_context):
+        assert project_context.project_path == Path.cwd()

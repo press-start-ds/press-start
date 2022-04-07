@@ -4,17 +4,20 @@
 # Link: https://kedro.readthedocs.io/en/stable/05_data/01_data_catalog.html
 input_dataset:
   type: pandas.CSVDataSet
-  # filepath: data/01_raw/test.csv
-  filepath: data/01_raw/breast_cancer_wisconsin_diagnostic.csv
+  filepath: data/01_raw/iris.csv
 
+dev_dataset:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/dev_dataset.csv
+
+holdout_dataset:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/holdout_dataset.csv
 
 pandas_profile:
   type: text.TextDataSet
   filepath: data/08_reporting/pandas_profile.html
 
-# missing_no:
-#   type: matplotlib.MatplotlibWriter
-#   filepath: data/08_reporting/missing_no.pdf
-#   save_args:
-#     bbox_inches: tight
-#     format: pdf
+feat_selection_k_best:
+  type: pandas.CSVDataSet
+  filepath: data/03_primary/feat_selection_k_best.csv
