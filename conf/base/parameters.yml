@@ -11,8 +11,9 @@ feat_selection_k_best:
   k: 3
 
 data_split:
-  # dev_size
-  dev_fraction: 0.2
+  #
+  val_size: 0.15
+  test_size: 0.15
   stratify: True
 
 general:
