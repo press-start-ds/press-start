@@ -1,6 +1,9 @@
 # Press Start
 
-![](docs/source/img/press-start-logo.png)
+<p align="center">
+    <img src="docs/source/img/press-start-logo.png" width="250">
+</p>
+
 ## Overview
 
 Press Start aims at providing a starting point for Data Science projects, by
