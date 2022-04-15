@@ -16,8 +16,20 @@ data_split:
   test_size: 0.15
   stratify: True
 
+category_encoder: null
+
 general:
   columns_to_keep: null
   columns_to_drop: null
-  column_target: variety
+  # The columns listed here are converted to categorical
+  # features using sklearn LabelEncoder. Set it to null
+  # in case the features don't need to be converted
+  columns_categorical:
+    - buying
+    - maint
+    - doors
+    - persons
+    - lug_boot
+    - safety
+  column_target: class
   prng_seed: 12345

@@ -1,8 +1,27 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from typing import Dict, Union
+from sklearn.preprocessing import OneHotEncoder
+from typing import Dict, Union, Any
 
 from press_start.utils import GeneralParams
+
+
+def category_encoder(
+    df: pd.DataFrame,
+    params: Dict[str, Union[int, float]],
+    general_params_dict: Dict[str, Any],
+):
+    general_params = GeneralParams(general_params_dict)
+    numerical_columns = set(df.columns) - set(general_params.columns_categorical)
+    enc = OneHotEncoder()
+    arr_one_hot = enc.fit_transform(df[general_params.columns_categorical])
+    one_hot_columns = [
+        f"{col_name}_{cat_name}"
+        for cat, col_name in zip(enc.categories_, general_params.columns_categorical)
+        for cat_name in cat
+    ]
+    df_one_hot = pd.DataFrame(arr_one_hot.todense(), columns=one_hot_columns)
+    return enc, pd.concat((df_one_hot, df[numerical_columns]), axis=1)
 
 
 def data_split(

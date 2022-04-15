@@ -14,10 +14,8 @@ def pandas_profile(df: pd.DataFrame, params: Dict[str, Dict]) -> str:
     """
     from pandas_profiling import ProfileReport
 
-    params = params.get('pandas_profile', {})
+    params = params.get("pandas_profile", {})
 
-    sample_size = params.get('sample_fraction', 1)
-    profile = ProfileReport(
-        df.sample(frac=sample_size), **params.get('params', {})
-    )
+    sample_size = params.get("sample_fraction", 1)
+    profile = ProfileReport(df.sample(frac=sample_size), **params.get("params", {}))
     return profile.to_html()
