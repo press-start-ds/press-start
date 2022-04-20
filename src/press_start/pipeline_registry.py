@@ -20,7 +20,6 @@ def register_pipelines() -> Dict[str, Pipeline]:
 
     return {
         "__default__": (
-            data_split_pipeline +
-            feature_analysis_pipeline + feature_selection_pipeline
+            data_split_pipeline + feature_analysis_pipeline + feature_selection_pipeline
         )
     }

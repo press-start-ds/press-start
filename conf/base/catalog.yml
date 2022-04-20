@@ -4,7 +4,11 @@
 # Link: https://kedro.readthedocs.io/en/stable/05_data/01_data_catalog.html
 input_dataset:
   type: pandas.CSVDataSet
-  filepath: data/01_raw/iris.csv
+  filepath: data/01_raw/car.csv
+
+numerical_dataset:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/numerical_dataset.csv
 
 dev_dataset:
   type: pandas.CSVDataSet
@@ -21,3 +25,8 @@ pandas_profile:
 feat_selection_k_best:
   type: pandas.CSVDataSet
   filepath: data/03_primary/feat_selection_k_best.csv
+
+category_encoder:
+  type: pickle.PickleDataSet
+  filepath: data/06_models/data_transformation/category_encoder.pkl
+  backend: joblib
