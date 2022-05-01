@@ -9,25 +9,25 @@ def create_pipeline(**kwargs):
         [
             node(
                 func=feat_selection_k_best,
-                inputs=[
-                    "dev_dataset",
-                    "params:feat_selection_k_best",
-                    "params:general",
-                ],
+                inputs=dict(
+                    df="dev_dataset",
+                    params="params:feat_selection_k_best",
+                    general_params_dict="params:general",
+                ),
                 outputs="feat_selection_k_best",
                 name="feat_selection_k_best",
                 tags="feature_selection",
             ),
-            # node(
-            #     func=get_metrics,
-            #     inputs=[
-            #         "feat_selection_k_best",
-            #         "params:feat_selection_metrics",
-            #         "params:general",
-            #     ],
-            #     outputs="feat_selection_k_best_metrics",
-            #     name="feat_selection_k_best_metrics",
-            #     tags="feature_selection",
-            # ),
+            node(
+                func=get_metrics,
+                inputs=[
+                    "feat_selection_k_best",
+                    "params:feat_selection_metrics",
+                    "params:general",
+                ],
+                outputs="feat_selection_k_best_metrics",
+                name="feat_selection_k_best_metrics",
+                tags="feature_selection",
+            ),
         ]
     )

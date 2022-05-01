@@ -2,7 +2,7 @@ import pandas as pd
 from typing import Dict
 
 
-def pandas_profile(df: pd.DataFrame, params: Dict[str, Dict]) -> str:
+def pandas_profiling(df: pd.DataFrame, params: Dict[str, Dict]) -> str:
     """Runs pandas profilling
 
     Args:
@@ -12,10 +12,11 @@ def pandas_profile(df: pd.DataFrame, params: Dict[str, Dict]) -> str:
     Returns:
         str: Pandas profilling report as html
     """
-    from pandas_profiling import ProfileReport
+    if params.get("_run", False):
+        from pandas_profiling import ProfileReport
 
-    params = params.get("pandas_profile", {})
+        sample_size = params.get("sample_fraction", 1)
+        profile = ProfileReport(df.sample(frac=sample_size), **params.get("params", {}))
+        return profile.to_html()
 
-    sample_size = params.get("sample_fraction", 1)
-    profile = ProfileReport(df.sample(frac=sample_size), **params.get("params", {}))
-    return profile.to_html()
+    return "Activate pandas profiling to get the repport."

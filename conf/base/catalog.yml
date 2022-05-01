@@ -24,7 +24,15 @@ pandas_profile:
 
 feat_selection_k_best:
   type: pandas.CSVDataSet
-  filepath: data/03_primary/feat_selection_k_best.csv
+  filepath: data/03_primary/feat_selection_k_best/features.csv
+
+feat_selection_k_best_metrics:
+  type: pandas.CSVDataSet
+  filepath: data/03_primary/feat_selection_k_best/metrics.csv
+
+feat_selection_report:
+  type: pandas.CSVDataSet
+  filepath: data/08_reporting/feat_selection_report.csv
 
 category_encoder:
   type: pickle.PickleDataSet

@@ -8,18 +8,22 @@ def create_pipeline(**kwargs):
         [
             node(
                 func=category_encoder,
-                inputs=[
-                    "input_dataset",
-                    "params:category_encoder",
-                    "params:general",
-                ],
+                inputs=dict(
+                    df="input_dataset",
+                    params="params:category_encoder",
+                    general_params_dict="params:general",
+                ),
                 outputs=["category_encoder", "numerical_dataset"],
                 name="category_encoder",
                 tags="data_split",
             ),
             node(
                 func=data_split,
-                inputs=["input_dataset", "params:data_split", "params:general"],
+                inputs=dict(
+                    df="numerical_dataset",
+                    params="params:data_split",
+                    general_params_dict="params:general",
+                ),
                 outputs=["dev_dataset", "holdout_dataset"],
                 name="data_split",
                 tags="data_split",

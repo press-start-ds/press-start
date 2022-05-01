@@ -6,8 +6,11 @@ import numpy as np
 def test_category_encoder(df_categorical):
     enc, df_numeric = category_encoder(
         df_categorical,
-        {},
-        {"columns_categorical": ["buying", "maint"], "column_target": "class"},
+        {"_run": True},
+        {
+            "columns_categorical": ["buying", "maint"],
+            "column_target": "class",
+        },
     )
     df_exp = pd.DataFrame.from_dict(
         {
@@ -20,9 +23,6 @@ def test_category_encoder(df_categorical):
             "class": {0: "unacc", 1: "good", 2: "acc", 3: "unacc", 4: "unacc"},
         }
     )
-    df_numeric.to_csv("/tmp/df_numeric.csv")
-    df_exp.to_csv("/tmp/df_exp.csv")
-
     enc_categories_exp = np.array(["high", "low", "med", "low", "med"])
     pd.testing.assert_frame_equal(df_exp, df_numeric, check_like=True)
     np.testing.assert_array_equal(np.concatenate(enc.categories_), enc_categories_exp)
