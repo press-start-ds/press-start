@@ -38,3 +38,10 @@ category_encoder:
   type: pickle.PickleDataSet
   filepath: data/06_models/data_transformation/category_encoder.pkl
   backend: joblib
+
+feat_selection_confusion_matrices:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/08_reporting/feat_selection_confusion_matrices.pdf
+  save_args:
+    format: pdf
+    bbox_inches: tight

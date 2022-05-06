@@ -1,5 +1,5 @@
 pandas_profiling:
-  _run: true
+  _run: false
   sample_fraction: 1.0
   params:
     samples:
@@ -8,7 +8,12 @@ pandas_profiling:
     interactions: null
 
 feat_selection_k_best:
+  _run: true
   k: 3
+
+feat_selection_metrics:
+  _run: true
+
 
 data_split:
   _run: true
