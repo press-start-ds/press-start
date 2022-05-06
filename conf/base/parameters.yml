@@ -1,22 +1,28 @@
-feature_analysis:
-  pandas_profile:
-    sample_fraction: 1.0
-    params:
-      samples:
-        head: 5
-        tail: 5
-      interactions: null
+pandas_profiling:
+  _run: false
+  sample_fraction: 1.0
+  params:
+    samples:
+      head: 5
+      tail: 5
+    interactions: null
 
 feat_selection_k_best:
+  _run: true
   k: 3
 
+feat_selection_metrics:
+  _run: true
+
+
 data_split:
-  #
+  _run: true
   val_size: 0.15
   test_size: 0.15
   stratify: True
 
-category_encoder: null
+category_encoder:
+  _run: true
 
 general:
   columns_to_keep: null

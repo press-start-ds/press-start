@@ -1,16 +1,16 @@
 from kedro.pipeline import Pipeline, node
 
-from .nodes import pandas_profile
+from .nodes import pandas_profiling
 
 
 def create_pipeline(**kwargs):
     return Pipeline(
         [
             node(
-                func=pandas_profile,
-                inputs=["input_dataset", "params:feature_analysis"],
+                func=pandas_profiling,
+                inputs=dict(df="input_dataset", params="params:pandas_profiling"),
                 outputs="pandas_profile",
-                name="pandas_profile",
+                name="pandas_profiling",
             ),
         ]
     )
