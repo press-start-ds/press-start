@@ -1,12 +1,13 @@
-# Press Start
 
 <p align="center">
-    <img src="docs/source/img/press-start-logo.png" width="250">
+    <img src="docs/source/img/press-start-logo.svg" width="400">
 </p>
+
+---
 
 ## Overview
 
-Press Start aims at providing a starting point for Data Science projects, by
+Press Start provides a starting point for Data Science projects, by
 running initial tests and preliminary experiments to generate insights
 regarding the problem.
 
