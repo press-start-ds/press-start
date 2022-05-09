@@ -1,5 +1,8 @@
-black==21.5b1
+wheel>=0.35, <0.37
+isort~=5.0
+black==22.3.0
 flake8>=3.7.9, <4.0
-kedro==0.18.0
 pytest-cov~=3.0
 pytest~=6.2
+pytest-mock>=1.7.1, <2.0
+mypy==0.942
