@@ -1,10 +1,13 @@
 import scikitplot as skplt
-import matplotlib.pyplot as plt
-from typing import Dict, Union
+import matplotlib
+from typing import Dict, Union, Optional
+from sklearn.metrics import classification_report
 from sklearn.ensemble import RandomForestClassifier
 from press_start.utils import GeneralParams
+import datapane as dp
 import pandas as pd
-import numpy as np
+import os
+import tempfile
 
 
 def get_metrics(
@@ -43,29 +46,67 @@ def get_metrics(
 
 
 def get_confusion_matrix(
-    df_dict: Dict[str, pd.DataFrame],
+    df: pd.DataFrame,
     params: Dict[str, Union[int, float]],
     general_params_dict: Dict[str, Dict],
-) -> plt.figure:
-    general_params = GeneralParams(general_params_dict)
-    fig_conf_matrix, axs = plt.subplots(len(df_dict), 1)
-    if isinstance(axs, np.ndarray):
-        axs = axs.flatten()
-    else:
-        axs = [axs]
-    for (method_name, df), ax in zip(df_dict.items(), axs):
-        y_hat = df.iloc[:, 1:].idxmax(axis=1)
-        skplt.metrics.plot_confusion_matrix(
-            df[general_params.column_target], y_hat, title="Confusion Matrix", ax=ax
-        )
-        return fig_conf_matrix
+    plot_title: Optional[str] = None,
+) -> matplotlib.axes.Axes:
+    # general_params = GeneralParams(general_params_dict)
+    y_hat = df.iloc[:, 1:].idxmax(axis=1)
+    return skplt.metrics.plot_confusion_matrix(df.iloc[:, 0], y_hat, title=plot_title)
 
 
 def report_confusion_matrix_feat_selection(
     k_best: pd.DataFrame,
     params: Dict[str, Union[int, float]],
-    general_params_dict: Dict[str, Dict],
-) -> plt.figure:
-    return get_confusion_matrix(
+    general_params_dict: Dict[str, dict],
+) -> str:
+    return get_classification_report(
         {"sklearn SelectKBest": k_best}, params, general_params_dict
     )
+
+
+def get_classification_metrics(
+    df: pd.DataFrame,
+    params: Dict[str, Union[int, float]],
+    general_params_dict: Dict[str, dict],
+):
+    y_hat = df.iloc[:, 1:].idxmax(axis=1)
+    dict_report = classification_report(
+        y_true=df.iloc[:, 0], y_pred=y_hat, output_dict=True
+    )
+    return pd.DataFrame.from_dict(dict_report)
+
+
+def get_classification_report(
+    dict_df_predictions: Dict[str, pd.DataFrame],
+    params: Dict[str, Union[int, float]],
+    general_params_dict: Dict[str, dict],
+) -> str:
+    conf_matrices = []
+    metrics = []
+    labels = []
+    for label, df_pred in dict_df_predictions.items():
+        conf_matrices.append(get_confusion_matrix(df_pred, params, general_params_dict))
+        metrics.append(get_classification_metrics(df_pred, params, general_params_dict))
+        labels.append(label)
+
+    # TODO: Use `to_string` method from datapane instead of files
+    with tempfile.TemporaryDirectory() as folder:
+        path_file = os.path.join(folder, "report.html")
+        dp.Report(
+            dp.Page(
+                title="Confusion matrices",
+                blocks=[
+                    dp.Plot(cm, label=label) for cm, label in zip(conf_matrices, labels)
+                ],
+            ),
+            dp.Page(
+                title="Classification metrics",
+                blocks=[dp.Plot(cm, label=label) for cm, label in zip(metrics, labels)],
+            ),
+        ).save(path=path_file)
+        with open(path_file, "r") as f:
+            html_content = f.read()
+
+        return html_content

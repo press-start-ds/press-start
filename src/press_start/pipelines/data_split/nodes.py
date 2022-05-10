@@ -13,7 +13,9 @@ def category_encoder(
 ) -> Tuple[Optional[OneHotEncoder], pd.DataFrame]:
     if params.get("_run", False):
         general_params = GeneralParams(general_params_dict)
-        numerical_columns = set(df.columns) - set(general_params.columns_categorical)
+        numerical_columns = list(
+            set(df.columns) - set(general_params.columns_categorical)
+        )
         enc = OneHotEncoder()
         arr_one_hot = enc.fit_transform(df[general_params.columns_categorical])
         one_hot_columns = [

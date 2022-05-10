@@ -36,8 +36,8 @@ def create_pipeline(**kwargs):
                     params="params:feat_selection_metrics",
                     general_params_dict="params:general",
                 ),
-                outputs="feat_selection_confusion_matrices",
-                name="generate_confusion_matrices",
+                outputs="feat_selection_report",
+                name="generate_feat_selection_report",
                 tags="feature_selection",
             ),
         ]
