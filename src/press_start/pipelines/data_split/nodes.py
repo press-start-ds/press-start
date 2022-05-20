@@ -3,7 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder
 from typing import Dict, Optional, Tuple, Union, Any
 
-from press_start.utils import GeneralParams
+from press_start.params import GeneralParams
 
 
 def category_encoder(
@@ -71,4 +71,4 @@ def data_split(
             )
         )
         return df_dev, df_test
-    return (df.assign(_is_training=True), df.sample(0))
+    return (df.assign(_is_training=True), df.sample(0).to_frame())

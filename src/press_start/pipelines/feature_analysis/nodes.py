@@ -1,8 +1,8 @@
 import pandas as pd
-from typing import Dict
+from typing import Dict, Union
 
 
-def pandas_profiling(df: pd.DataFrame, params: Dict[str, Dict]) -> str:
+def pandas_profiling(df: pd.DataFrame, params: Dict[str, Union[float, Dict]]) -> str:
     """Runs pandas profilling
 
     Args:
@@ -15,7 +15,7 @@ def pandas_profiling(df: pd.DataFrame, params: Dict[str, Dict]) -> str:
     if params.get("_run", False):
         from pandas_profiling import ProfileReport
 
-        sample_size = params.get("sample_fraction", 1)
+        sample_size = params.get("sample_fraction", 1.0)
         profile = ProfileReport(df.sample(frac=sample_size), **params.get("params", {}))
         return profile.to_html()
 

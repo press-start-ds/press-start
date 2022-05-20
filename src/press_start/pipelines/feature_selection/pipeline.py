@@ -1,7 +1,7 @@
 from kedro.pipeline import Pipeline, node
 
-from .report import get_metrics, report_confusion_matrix_feat_selection
-from .nodes import feat_selection_k_best
+from .report import report_feat_selection_metrics
+from .nodes import feat_selection_k_best, feat_selection_rfe
 
 
 def create_pipeline(**kwargs):
@@ -11,28 +11,31 @@ def create_pipeline(**kwargs):
                 func=feat_selection_k_best,
                 inputs=dict(
                     df="dev_dataset",
-                    params="params:feat_selection_k_best",
+                    params_dict="params:feat_selection_k_best",
+                    metric_params_dict="params:feat_selection_metrics",
                     general_params_dict="params:general",
                 ),
-                outputs="feat_selection_k_best",
+                outputs=["feat_selection_k_best", "feat_selection_k_best_metrics"],
                 name="feat_selection_k_best",
                 tags="feature_selection",
             ),
             node(
-                func=get_metrics,
+                func=feat_selection_rfe,
                 inputs=dict(
-                    df="feat_selection_k_best",
-                    params="params:feat_selection_metrics",
+                    df="dev_dataset",
+                    params_dict="params:feat_selection_rfe",
+                    metric_params_dict="params:feat_selection_metrics",
                     general_params_dict="params:general",
                 ),
-                outputs="feat_selection_k_best_metrics",
-                name="generate_k_best_metrics",
+                outputs=["feat_selection_rfe", "feat_selection_rfe_metrics"],
+                name="feat_selection_rfe",
                 tags="feature_selection",
             ),
             node(
-                func=report_confusion_matrix_feat_selection,
+                func=report_feat_selection_metrics,
                 inputs=dict(
                     k_best="feat_selection_k_best_metrics",
+                    rfe="feat_selection_rfe_metrics",
                     params="params:feat_selection_metrics",
                     general_params_dict="params:general",
                 ),

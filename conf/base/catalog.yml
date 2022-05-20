@@ -30,6 +30,14 @@ feat_selection_k_best_metrics:
   type: pandas.CSVDataSet
   filepath: data/03_primary/feat_selection_k_best/metrics.csv
 
+feat_selection_rfe:
+  type: pandas.CSVDataSet
+  filepath: data/03_primary/feat_selection_rfe/features.csv
+
+feat_selection_rfe_metrics:
+  type: pandas.CSVDataSet
+  filepath: data/03_primary/feat_selection_rfe/metrics.csv
+
 feat_selection_report:
   type: text.TextDataSet
   filepath: data/08_reporting/feat_selection_report.html

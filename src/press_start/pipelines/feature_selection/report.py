@@ -1,14 +1,16 @@
 import matplotlib
+import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 from typing import Dict, Union, Optional
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.ensemble import RandomForestClassifier
-from press_start.utils import GeneralParams
 import datapane as dp
 import pandas as pd
 import os
+import itertools
 import tempfile
+from press_start.params import GeneralParams
 
 
 def get_metrics(
@@ -46,12 +48,13 @@ def get_metrics(
     return df_ts.T.sample(0).to_frame()
 
 
-def get_confusion_matrix(
+def _get_confusion_matrix(
     df: pd.DataFrame,
     params: Dict[str, Union[int, float]],
     general_params_dict: Dict[str, Dict],
     plot_title: Optional[str] = None,
 ) -> matplotlib.axes.Axes:
+    fig, ax = plt.subplots(figsize=(10, 9))
     y = df.iloc[:, 0]
     y_hat = df.iloc[:, 1:].idxmax(axis=1)
     labels = df.columns[1:]
@@ -60,8 +63,6 @@ def get_confusion_matrix(
     cm_values = np.vectorize(lambda v: "{:d}\n({:0.1f}%)".format(v, 100 * v / n_data))(
         cf_matrix
     )
-
-    print(cf_matrix.shape, len(cm_values))
     ax = sns.heatmap(cf_matrix, annot=cm_values, fmt="", cmap="Blues")
 
     ax.set_title(plot_title)
@@ -70,21 +71,12 @@ def get_confusion_matrix(
 
     ax.xaxis.set_ticklabels(labels)
     ax.yaxis.set_ticklabels(labels)
+    fig.tight_layout()
     # general_params = GeneralParams(general_params_dict)
     return ax
 
 
-def report_confusion_matrix_feat_selection(
-    k_best: pd.DataFrame,
-    params: Dict[str, Union[int, float]],
-    general_params_dict: Dict[str, dict],
-) -> str:
-    return get_classification_report(
-        {"sklearn SelectKBest": k_best}, params, general_params_dict
-    )
-
-
-def get_classification_metrics(
+def _get_classification_metrics(
     df: pd.DataFrame,
     params: Dict[str, Union[int, float]],
     general_params_dict: Dict[str, dict],
@@ -96,7 +88,7 @@ def get_classification_metrics(
     return pd.DataFrame.from_dict(dict_report)
 
 
-def get_classification_report(
+def _get_classification_report(
     dict_df_predictions: Dict[str, pd.DataFrame],
     params: Dict[str, Union[int, float]],
     general_params_dict: Dict[str, dict],
@@ -105,8 +97,12 @@ def get_classification_report(
     metrics = []
     labels = []
     for label, df_pred in dict_df_predictions.items():
-        conf_matrices.append(get_confusion_matrix(df_pred, params, general_params_dict))
-        metrics.append(get_classification_metrics(df_pred, params, general_params_dict))
+        conf_matrices.append(
+            _get_confusion_matrix(df_pred, params, general_params_dict)
+        )
+        metrics.append(
+            _get_classification_metrics(df_pred, params, general_params_dict)
+        )
         labels.append(label)
 
     # TODO: Use `to_string` method from datapane instead of files
@@ -115,16 +111,37 @@ def get_classification_report(
         dp.Report(
             dp.Page(
                 title="Confusion matrices",
-                blocks=[
-                    dp.Plot(cm, label=label) for cm, label in zip(conf_matrices, labels)
-                ],
+                blocks=itertools.chain.from_iterable(
+                    (f"### {label}", dp.Plot(cm))
+                    for cm, label in zip(conf_matrices, labels)
+                ),
             ),
             dp.Page(
                 title="Classification metrics",
-                blocks=[dp.Plot(cm, label=label) for cm, label in zip(metrics, labels)],
+                blocks=itertools.chain.from_iterable(
+                    (f"### {label}", dp.Plot(cm)) for cm, label in zip(metrics, labels)
+                ),
             ),
-        ).save(path=path_file)
+        ).save(
+            path=path_file, formatting=dp.ReportFormatting(width=dp.ReportWidth.NARROW)
+        )
         with open(path_file, "r") as f:
             html_content = f.read()
 
         return html_content
+
+
+def report_feat_selection_metrics(
+    k_best: pd.DataFrame,
+    rfe: pd.DataFrame,
+    params: Dict[str, Union[int, float]],
+    general_params_dict: Dict[str, dict],
+) -> str:
+    return _get_classification_report(
+        {
+            "sklearn SelectKBest": k_best,
+            "sklearn Recursive Feature Elimination (RFE)": rfe,
+        },
+        params,
+        general_params_dict,
+    )
