@@ -1,7 +1,8 @@
-import scikitplot as skplt
 import matplotlib
+import numpy as np
+import seaborn as sns
 from typing import Dict, Union, Optional
-from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.ensemble import RandomForestClassifier
 from press_start.utils import GeneralParams
 import datapane as dp
@@ -51,9 +52,26 @@ def get_confusion_matrix(
     general_params_dict: Dict[str, Dict],
     plot_title: Optional[str] = None,
 ) -> matplotlib.axes.Axes:
-    # general_params = GeneralParams(general_params_dict)
+    y = df.iloc[:, 0]
     y_hat = df.iloc[:, 1:].idxmax(axis=1)
-    return skplt.metrics.plot_confusion_matrix(df.iloc[:, 0], y_hat, title=plot_title)
+    labels = df.columns[1:]
+    cf_matrix = confusion_matrix(y, y_hat)
+    n_data = cf_matrix.sum()
+    cm_values = np.vectorize(lambda v: "{:d}\n({:0.1f}%)".format(v, 100 * v / n_data))(
+        cf_matrix
+    )
+
+    print(cf_matrix.shape, len(cm_values))
+    ax = sns.heatmap(cf_matrix, annot=cm_values, fmt="", cmap="Blues")
+
+    ax.set_title(plot_title)
+    ax.set_xlabel("Predicted Values")
+    ax.set_ylabel("Actual Values")
+
+    ax.xaxis.set_ticklabels(labels)
+    ax.yaxis.set_ticklabels(labels)
+    # general_params = GeneralParams(general_params_dict)
+    return ax
 
 
 def report_confusion_matrix_feat_selection(
