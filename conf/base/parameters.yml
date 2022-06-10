@@ -11,9 +11,11 @@ feat_selection_k_best:
   _run: true
   k: 3
 
-feat_selection_metrics:
+feat_selection_rfe:
   _run: true
 
+feat_selection_metrics:
+  _run: true
 
 data_split:
   _run: true

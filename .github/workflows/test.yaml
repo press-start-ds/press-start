@@ -43,8 +43,8 @@ jobs:
         black --check src --exclude docs/
     - name: Run flake8
       run: flake8 src
-    # - name: Run Mypy
-    #   run: mypy src
+    - name: Run Mypy
+      run: mypy src --ignore-missing-imports
     - name: Run isort
       run: isort --profile black src
     - name: Run pytest
