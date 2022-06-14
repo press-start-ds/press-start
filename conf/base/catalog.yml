@@ -53,3 +53,7 @@ feat_selection_confusion_matrices:
   save_args:
     format: pdf
     bbox_inches: tight
+
+nlp_example_dataset:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/nlp_reuters_21578.csv

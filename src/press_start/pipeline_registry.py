@@ -6,6 +6,7 @@ from kedro.pipeline import Pipeline
 from press_start.pipelines.feature_analysis import pipeline as fa
 from press_start.pipelines.feature_selection import pipeline as fs
 from press_start.pipelines.data_split import pipeline as ds
+from press_start.pipelines.nlp_visualization import pipeline as nlp_viz
 
 
 def register_pipelines() -> Dict[str, Pipeline]:
@@ -17,9 +18,13 @@ def register_pipelines() -> Dict[str, Pipeline]:
     feature_analysis_pipeline = fa.create_pipeline()
     feature_selection_pipeline = fs.create_pipeline()
     data_split_pipeline = ds.create_pipeline()
+    nlp_visualization_pipeline = nlp_viz.create_pipeline()
 
     return {
         "__default__": (
-            data_split_pipeline + feature_analysis_pipeline + feature_selection_pipeline
+            data_split_pipeline
+            + feature_analysis_pipeline
+            + feature_selection_pipeline
+            + nlp_visualization_pipeline
         )
     }
