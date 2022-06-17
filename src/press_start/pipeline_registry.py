@@ -26,5 +26,6 @@ def register_pipelines() -> Dict[str, Pipeline]:
             + feature_analysis_pipeline
             + feature_selection_pipeline
             + nlp_visualization_pipeline
-        )
+        ),
+        "nlp_visualization": nlp_visualization_pipeline,
     }
