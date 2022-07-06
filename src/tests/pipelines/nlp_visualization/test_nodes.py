@@ -1,4 +1,5 @@
 from press_start.pipelines.nlp_visualization.nodes import (
+    compute_umap_projection,
     load_example_dataset,
     vectorize_nlp,
 )
@@ -30,3 +31,12 @@ def test_vectorize_nlp():
         ]
     )
     np.testing.assert_array_almost_equal(arr_output, arr_expected_rounded, 2)
+
+
+def test_compute_umap_projection():
+    np.random.seed(123)
+    arr_input = np.round(np.random.rand(5, 10))
+    df_output = compute_umap_projection(
+        arr_input, {"dim_reduction_args": {"n_neighbors": 2, "random_state": 123}}, {}
+    )
+    assert df_output.shape == (5, 2)
