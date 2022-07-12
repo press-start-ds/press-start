@@ -1,5 +1,4 @@
-git+https://github.com/kedro-org/kedro
-# kedro==0.18.0
+kedro>=0.18.2
 kedro-viz==4.5.0
 scikit-learn==1.0.2
 joblib~=1.0.1 # Required by pandas_profiling
