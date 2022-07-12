@@ -17,6 +17,20 @@ feat_selection_rfe:
 feat_selection_metrics:
   _run: true
 
+nlp_visualization:
+  _run: true
+  column_corpus: doc
+  column_id: id_doc
+  column_category: category
+  dim_reduction_method: umap
+  dim_reduction_args:
+    n_neighbors: 15
+    min_dist: 0.1
+  data_clustering_method: null
+  data_clustering_args:
+    n_clusters: 20
+
+
 data_split:
   _run: true
   val_size: 0.15

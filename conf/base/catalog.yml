@@ -53,3 +53,25 @@ feat_selection_confusion_matrices:
   save_args:
     format: pdf
     bbox_inches: tight
+
+nlp_example_dataset:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/nlp_20_news_groups.csv
+
+nlp_vectorized:
+  type: kedro.extras.datasets.pickle.PickleDataSet
+  filepath: data/04_feature/nlp_vectorized.pkl
+
+nlp_projection:
+  type: pandas.CSVDataSet
+  filepath: data/04_feature/nlp_projection.csv
+
+
+nlp_cluster_labels:
+  type: kedro.extras.datasets.pickle.PickleDataSet
+  filepath: data/04_feature/nlp_cluster_labels.pkl
+
+
+nlp_visualization:
+  type: text.TextDataSet
+  filepath: data/08_reporting/nlp_visualization.html
