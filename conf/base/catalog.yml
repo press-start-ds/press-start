@@ -6,9 +6,9 @@ input_dataset:
   type: pandas.CSVDataSet
   filepath: data/01_raw/car.csv
 
-numerical_dataset:
+dev_dataset_numerical:
   type: pandas.CSVDataSet
-  filepath: data/02_intermediate/numerical_dataset.csv
+  filepath: data/02_intermediate/dev_dataset_numerical.csv
 
 dev_dataset:
   type: pandas.CSVDataSet

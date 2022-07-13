@@ -24,7 +24,7 @@ def create_pipeline(**kwargs):
                     params="params:category_encoder",
                     general_params_dict="params:general",
                 ),
-                outputs=["category_encoder", "numerical_dataset"],
+                outputs=["category_encoder", "dev_dataset_numerical"],
                 name="category_encoder",
                 tags="data_split",
             ),
