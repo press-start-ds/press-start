@@ -10,7 +10,7 @@ def create_pipeline(**kwargs):
             node(
                 func=feat_selection_k_best,
                 inputs=dict(
-                    df="dev_dataset",
+                    df="dev_dataset_numerical",
                     params_dict="params:feat_selection_k_best",
                     metric_params_dict="params:feat_selection_metrics",
                     general_params_dict="params:general",
@@ -22,7 +22,7 @@ def create_pipeline(**kwargs):
             node(
                 func=feat_selection_rfe,
                 inputs=dict(
-                    df="dev_dataset",
+                    df="dev_dataset_numerical",
                     params_dict="params:feat_selection_rfe",
                     metric_params_dict="params:feat_selection_metrics",
                     general_params_dict="params:general",

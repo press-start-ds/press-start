@@ -8,7 +8,7 @@ def create_pipeline(**kwargs):
         [
             node(
                 func=pandas_profiling,
-                inputs=dict(df="input_dataset", params="params:pandas_profiling"),
+                inputs=dict(df="dev_dataset", params="params:pandas_profiling"),
                 outputs="pandas_profile",
                 name="pandas_profiling",
             ),
