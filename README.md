@@ -58,11 +58,27 @@ data
 ├── 07_model_output
 └── 08_reporting
     ├── feat_selection_report.html
-    ├── missing_no.pdf
     ├── nlp_visualization.html
     └── pandas_profile.html
 ```
 
+## Pipelines
+
+### NLP visualization
+
+Vectorize the text, projects the vector to a space with 2 dimensions and plot the results:
+
+![](docs/source/img/nlp-visualization-example.png)
+
+### Feature selection
+
+Run feature selection methods and plot the performance:
+
+![](docs/source/img/feature-selection-example.png)
+
+### Pandas profiling
+
+Run pandas profiling in your data and store the results
 
 ## Using `press-start` for your own projects
 
