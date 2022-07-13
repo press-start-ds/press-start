@@ -1,12 +1,13 @@
-# Press Start
 
 <p align="center">
-    <img src="docs/source/img/press-start-logo.png" width="250">
+    <img src="docs/source/img/press-start-logo.svg" width="400">
 </p>
+
+---
 
 ## Overview
 
-Press Start aims at providing a starting point for Data Science projects, by
+Press Start provides a starting point for Data Science projects, by
 running initial tests and preliminary experiments to generate insights
 regarding the problem.
 
@@ -33,25 +34,32 @@ the folder `data`. Notice the reports stored in `data/08_reporting`.
 ```bash
 data
 ├── 01_raw
-│   ├── breast_cancer_wisconsin_diagnostic.csv
 │   ├── car.csv
 │   └── iris.csv
 ├── 02_intermediate
 │   ├── dev_dataset.csv
-│   ├── holdout_dataset.csv
-│   └── numerical_dataset.csv
+│   ├── dev_dataset_numerical.csv
+│   └── holdout_dataset.csv
 ├── 03_primary
-│   └── feat_selection_k_best
+│   ├── feat_selection_k_best
+│   │   ├── features.csv
+│   │   └── metrics.csv
+│   └── feat_selection_rfe
 │       ├── features.csv
 │       └── metrics.csv
 ├── 04_feature
+│   ├── nlp_cluster_labels.pkl
+│   ├── nlp_projection.csv
+│   └── nlp_vectorized.pkl
 ├── 05_model_input
 ├── 06_models
 │   └── data_transformation
 │       └── category_encoder.pkl
 ├── 07_model_output
 └── 08_reporting
-    ├── feat_selection_confusion_matrices.pdf
+    ├── feat_selection_report.html
+    ├── missing_no.pdf
+    ├── nlp_visualization.html
     └── pandas_profile.html
 ```
 
