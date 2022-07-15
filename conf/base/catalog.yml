@@ -18,10 +18,6 @@ holdout_dataset:
   type: pandas.CSVDataSet
   filepath: data/02_intermediate/holdout_dataset.csv
 
-pandas_profile:
-  type: text.TextDataSet
-  filepath: data/08_reporting/pandas_profile.html
-
 feat_selection_k_best:
   type: pandas.CSVDataSet
   filepath: data/03_primary/feat_selection_k_best/features.csv
@@ -47,13 +43,6 @@ category_encoder:
   filepath: data/06_models/data_transformation/category_encoder.pkl
   backend: joblib
 
-feat_selection_confusion_matrices:
-  type: matplotlib.MatplotlibWriter
-  filepath: data/08_reporting/feat_selection_confusion_matrices.pdf
-  save_args:
-    format: pdf
-    bbox_inches: tight
-
 nlp_example_dataset:
   type: pandas.CSVDataSet
   filepath: data/01_raw/nlp_20_news_groups.csv
@@ -66,7 +55,6 @@ nlp_projection:
   type: pandas.CSVDataSet
   filepath: data/04_feature/nlp_projection.csv
 
-
 nlp_cluster_labels:
   type: kedro.extras.datasets.pickle.PickleDataSet
   filepath: data/04_feature/nlp_cluster_labels.pkl
@@ -75,3 +63,14 @@ nlp_cluster_labels:
 nlp_visualization:
   type: text.TextDataSet
   filepath: data/08_reporting/nlp_visualization.html
+
+feat_selection_confusion_matrices:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/08_reporting/feat_selection_confusion_matrices.pdf
+  save_args:
+    format: pdf
+    bbox_inches: tight
+
+pandas_profile:
+  type: text.TextDataSet
+  filepath: data/08_reporting/pandas_profile.html

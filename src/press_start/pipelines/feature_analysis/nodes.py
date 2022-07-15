@@ -19,4 +19,4 @@ def pandas_profiling(df: pd.DataFrame, params: Dict[str, Union[float, Dict]]) ->
         profile = ProfileReport(df.sample(frac=sample_size), **params.get("params", {}))
         return profile.to_html()
 
-    return "Activate pandas profiling to get the repport."
+    return "Activate pandas profiling in parameters.yml to get the repport."
