@@ -75,3 +75,7 @@ nlp_cluster_labels:
 nlp_visualization:
   type: text.TextDataSet
   filepath: data/08_reporting/nlp_visualization.html
+
+example_dataset_iris:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/example_dataset_iris.csv
