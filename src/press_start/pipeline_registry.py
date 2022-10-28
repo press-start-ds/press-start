@@ -28,6 +28,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
             + feature_analysis_pipeline
             + feature_selection_pipeline
             + nlp_visualization_pipeline
+            + kmeans_pipeline
         ),
         "nlp_visualization": nlp_visualization_pipeline,
         "example_clustering_kmeans": kmeans_pipeline,

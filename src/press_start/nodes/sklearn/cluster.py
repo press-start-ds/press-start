@@ -1,6 +1,7 @@
 import sys
 from press_start.nodes.utils import register_external_node
 from typing import Callable
+import pandas as pd
 
 
 _SKLEARN_MODULE = "sklearn.cluster"
@@ -35,7 +36,7 @@ SpectralBiclustering: Callable
 SpectralCoclustering: Callable
 
 
-def register_cluster(base_model):
+def register_cluster_model(base_model):
     def model_fit(df, parameters):
         model = base_model(**parameters)
         model.fit(df)
@@ -43,11 +44,11 @@ def register_cluster(base_model):
             y_pred = model.labels_.astype(int)
         else:
             y_pred = model.predict(df)
-        return y_pred, base_model
+        return pd.Series(y_pred, name="cluster"), base_model
 
     return model_fit
 
 
 register_external_node(
-    _SKLEARN_MODULE, _SKLEARN_CLASSES, sys.modules[__name__], register_cluster
+    _SKLEARN_MODULE, _SKLEARN_CLASSES, sys.modules[__name__], register_cluster_model
 )
